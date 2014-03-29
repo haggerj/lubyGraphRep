@@ -14,14 +14,6 @@ using std::string;
          g = adjGraph(nrow);
       }
 
-      for (int i = 0; i < ncol; i++) {
-         std::cout << "colptr at " << i << " = " << colptr[i] << std::endl;
-      }
-
-      for (int i = 0; i < ncol; i++) {
-         std::cout << "rowind at " << i << " = " << rowind[i] << std::endl;
-      }
-
       int j = 0;
       for (int i = 0; i < ncol; i++) {
          for ( ; j < colptr[i]; j++) {
@@ -63,8 +55,6 @@ using std::string;
       hb_header_read(input, &title, &key, &totcrd, &ptrcrd, &indcrd,
          &valcrd, &rhscrd, &mxtype, &nrow, &ncol, &nnzero, &neltvl,
          &ptrfmt, &indfmt, &valfmt, &rhsfmt, &rhstyp, &nrhs, &nrhsix);
-
-      std::cout << "rhscrd = " << rhscrd << std::endl;
 
       int * colptr = new int[ncol+1];
 
