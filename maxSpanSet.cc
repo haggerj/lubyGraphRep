@@ -1,5 +1,5 @@
 #include <set>
-#include<vector>
+#include <vector>
 #include "maxSpanSet.h"
 
 using std::set;
@@ -7,7 +7,7 @@ using std::vector;
 using std::list;
 
 bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
-   vector<bool> marked(graph.V(), true);
+   vector<bool> marked(graph.V(), false);
    bool spanning = true;
 
    for (set<int>::iterator itr = spanningSet.begin(); 
