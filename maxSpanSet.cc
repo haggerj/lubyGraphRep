@@ -11,27 +11,21 @@ void printMarked(vector<bool> marked, int n);
 
 bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
    vector<bool> marked(graph.V(), false);
-   bool spanning = true;
 
    for (set<int>::iterator itr = spanningSet.begin(); 
-        itr != spanningSet.end() && spanning; itr++) {
-      std::cout << "checking for node " << *itr << std::endl;
-
-      printMarked(marked, graph.V());
+        itr != spanningSet.end(); itr++) {
 
       if (marked[*itr]) {
-         spanning = false;
+         return false;
       } else {
          marked[*itr] = true;
          list<int> edges = graph.edges(*itr);
 
          for (list<int>::iterator litr = edges.begin();
-              litr != edges.end() && spanning; litr++) {
+              litr != edges.end(); litr++) {
  
-            printMarked(marked, graph.V());
-
             if(*itr != *litr && marked[*litr]) {
-               spanning = false;
+               return false;
             } else {
                marked[*litr] = true;
             }
@@ -39,9 +33,17 @@ bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
       }
    }
 
-   return spanning;
+
+   for (int i = 0; i < graph.V(); i++) {
+      if (!marked[i]) {
+         return false;
+      }
+   }
+
+   return true;
 }
 
+//Helper method for testing
 void printMarked(vector<bool> marked, int n) {
    std::cout << "vector marked: ";
 
