@@ -16,6 +16,9 @@ int main() {
 
    set<int> spanningSet;
    spanningSet.insert(1);
+   spanningSet.insert(3);
+   spanningSet.insert(8);
+   spanningSet.insert(6);
 
    if (isSpanningSet(spanningSet, g)) {
       std::cout << "Is spanning set" << std::endl;
