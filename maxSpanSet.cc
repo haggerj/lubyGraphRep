@@ -2,6 +2,7 @@
 #include <vector>
 #include "maxSpanSet.h"
 #include <iostream>
+#include <stdlib.h>
 
 using std::set;
 using std::vector;
@@ -23,7 +24,7 @@ bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
 
          for (list<int>::iterator litr = edges.begin();
               litr != edges.end(); litr++) {
- 
+
             if(*itr != *litr && marked[*litr]) {
                return false;
             } else {
@@ -41,6 +42,37 @@ bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
    }
 
    return true;
+}
+
+//spanSet should be an empty set
+void lubySpanSet(set<int>& spanSet, adjGraph graph) {
+   for (int i = 0; i < graph.V(); i++) {
+      if(graph.numEdges(i) == 0 || (rand() % (2 * graph.numEdges(i))) == 1) {
+         spanSet.insert(i);
+      }
+   }
+
+   bool cont = true;
+
+   for (int j = 0; j < graph.V(); j++) {
+      if(spanSet.find(j) != spanSet.end()) {
+         list<int> edges = graph.edges(j);
+         int numEdges = edges.size();
+
+         for (list<int>::iterator itr = edges.begin(); 
+            itr != edges.end() && cont; itr++) {
+
+            if (*itr != j && spanSet.find(*itr) != spanSet.end()) {
+               if (numEdges < graph.numEdges(*itr)) {
+                  spanSet.erase(j);
+                  cont = false;
+               } else {
+                  spanSet.erase(*itr);
+               }
+            }
+         }
+      }
+   }
 }
 
 //Helper method for testing

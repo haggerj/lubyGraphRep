@@ -35,6 +35,13 @@ using std::list;
          }
    }
 
+   int adjGraph::numEdges(int v) {
+      if (v >= Vcnt) {
+         return 0;
+      }
+      return adj[v].size();
+   }
+
    bool adjGraph::edge(int e1, int e2) {
          if (e1 > Vcnt || e2 > Vcnt) {
             return false;
@@ -52,9 +59,10 @@ using std::list;
     }
 
    void adjGraph::print() {
-      for (vector<list<int> >::iterator vitr = adj.begin();
-           vitr != adj.end(); vitr++) {
-         for(list<int>::iterator litr = vitr->begin(); litr != vitr->end(); 
+      for (int i = 0; i < Vcnt; i++) {
+         std::cout << i << ": ";
+
+         for(list<int>::iterator litr = adj[i].begin(); litr != adj[i].end(); 
              litr++) {
             std::cout << *litr << " ";
          }

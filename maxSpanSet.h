@@ -5,5 +5,6 @@
 #include <set>
 
 bool isSpanningSet(std::set<int> spanningSet, adjGraph graph);
+void lubySpanSet(std::set<int>& spanSet, adjGraph graph);
 
 #endif

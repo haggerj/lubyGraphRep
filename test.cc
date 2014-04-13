@@ -2,6 +2,7 @@
 #include "maxSpanSet.h"
 #include <set>
 #include <iostream>
+#include <stdlib.h>
 
 using std::set;
 
@@ -24,6 +25,21 @@ int main() {
    spanningSet.insert(9);
 
    if (isSpanningSet(spanningSet, g)) {
+      std::cout << "Is spanning set" << std::endl;
+   } else {
+      std::cout << "Not a spanning set" << std::endl;
+   }
+
+   set<int> lubySpanningSet;
+   lubySpanSet(lubySpanningSet, g);
+
+   for (set<int>::iterator itr = lubySpanningSet.begin();
+        itr != lubySpanningSet.end(); itr++) {
+      std::cout << *itr << " ";
+   }
+   std::cout << std::endl;
+
+   if (isSpanningSet(lubySpanningSet, g)) {
       std::cout << "Is spanning set" << std::endl;
    } else {
       std::cout << "Not a spanning set" << std::endl;

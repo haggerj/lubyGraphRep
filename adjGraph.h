@@ -10,6 +10,7 @@ class adjGraph {
       int E() const;
 
       void insert(int e1, int e2);
+      int numEdges(int v);
       bool edge(int e1, int e2);
       std::list<int> edges(int e);
 
