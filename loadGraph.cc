@@ -4,6 +4,7 @@
 
 #include "hb_io.h"
 #include "adjGraph.h"
+#include "loadGraph.h"
 
 using std::string;
 
@@ -14,11 +15,10 @@ using std::string;
          g = adjGraph(nrow);
       }
 
-      int j = 0;
+      int j = 1;
       for (int i = 0; i < ncol; i++) {
-         for ( ; j < colptr[i]; j++) {
-            g.insert(i, rowind[j] - 1);
-            std::cout << "adding edge from " << i << " to " << rowind[j] << std::endl;
+         for ( ; j < colptr[i + 1]; j++) {
+            g.insert(i, rowind[j - 1] - 1);
          }
       }
 
@@ -86,8 +86,8 @@ using std::string;
       return g;
    }
 
-   int main() {
+   /*int main() {
       adjGraph g = loadGraph("bcsstm01/bcsstm01.rb");
 
       g.print();
-   }
+   }*/

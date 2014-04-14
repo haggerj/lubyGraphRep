@@ -28,7 +28,7 @@ using std::list;
    }
 
    void adjGraph::insert(int e1, int e2) {
-         if (e1 < Vcnt && e2 < Vcnt) {
+         if (e1 < Vcnt && e2 < Vcnt && e1 != e2) {
             adj[e1].push_back(e2);
             adj[e2].push_back(e1);
             Ecnt++;

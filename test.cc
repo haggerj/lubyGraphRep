@@ -1,10 +1,14 @@
 #include "adjGraph.h"
 #include "maxSpanSet.h"
+#include "loadGraph.h"
 #include <set>
 #include <iostream>
 #include <stdlib.h>
 
 using std::set;
+
+void printIsSpanningSet(set<int> spanSet, adjGraph g);
+void printSet(set<int> s);
 
 int main() {
    adjGraph g = adjGraph(10);
@@ -24,26 +28,41 @@ int main() {
    spanningSet.insert(7);
    spanningSet.insert(9);
 
-   if (isSpanningSet(spanningSet, g)) {
-      std::cout << "Is spanning set" << std::endl;
-   } else {
-      std::cout << "Not a spanning set" << std::endl;
-   }
+   printIsSpanningSet(spanningSet, g);
 
    set<int> lubySpanningSet;
    lubySpanSet(lubySpanningSet, g);
+   printSet(lubySpanningSet);
+   printIsSpanningSet(lubySpanningSet, g);
 
-   for (set<int>::iterator itr = lubySpanningSet.begin();
-        itr != lubySpanningSet.end(); itr++) {
+   adjGraph g2 = loadGraph("bcsstm01/bcsstm01.rb");
+   g2.print();
+   set<int> lubySet2;
+   lubySpanSet(lubySet2, g2);
+   printSet(lubySet2);
+   printIsSpanningSet(lubySet2, g2);
+
+   adjGraph g3 = loadGraph("Stranke94/Stranke94.rb");
+   g3.print();
+   set<int> lubySet3;
+   lubySpanSet(lubySet3, g3);
+   printSet(lubySet3);
+   printIsSpanningSet(lubySet3, g3);
+
+   return 0;
+}
+
+void printSet(set<int> s) {
+   for (set<int>::iterator itr = s.begin(); itr != s.end(); itr++) {
       std::cout << *itr << " ";
    }
-   std::cout << std::endl;
+   std::cout << "\n" << std::endl;
+}
 
-   if (isSpanningSet(lubySpanningSet, g)) {
+void printIsSpanningSet(set<int> set, adjGraph g) {
+   if (isSpanningSet(set, g)) {
       std::cout << "Is spanning set" << std::endl;
    } else {
       std::cout << "Not a spanning set" << std::endl;
    }
-
-   return 0;
 }
