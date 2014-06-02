@@ -44,8 +44,45 @@ bool isSpanningSet(set<int> spanningSet, adjGraph graph) {
    return true;
 }
 
-//spanSet should be an empty set
 void lubySpanSet(set<int>& spanSet, adjGraph graph) {
+  set<int> discarded;
+
+  while(!isSpanningSet(spanSet, graph)) {
+    set<int> candidates;
+    for(int i = 0; i < graph.V(); i++) {
+      if(spanSet.find(i) == spanSet.end() 
+        && discarded.find(i) == discarded.end() && (graph.numEdges(i) == 0 ||
+        rand() % (2 * graph.numEdges(i)))) {
+        candidates.insert(i);
+      }
+    }
+
+    for(set<int>::iterator itr = candidates.begin();
+      itr != candidates.end(); itr++) {
+      int numEdges = graph.numEdges(*itr);
+      list<int> edges = graph.edges(*itr);
+
+      for(list<int>::iterator editr = edges.begin(); editr != edges.end(); editr++) {
+        if(*itr != *editr && candidates.find(*editr) != candidates.end()) {
+          if(numEdges < graph.numEdges(*editr) ||
+            (*itr < *editr && numEdges == graph.numEdges(*editr))) {
+            candidates.erase(*itr);
+            break;
+          } else {
+            candidates.erase(*editr);
+          }
+        }
+      }
+    }
+
+    for(set<int>::iterator itr = candidates.begin(); itr != candidates.end(); itr++) {
+      spanSet.insert(*itr);
+    }
+  }
+}
+
+//spanSet should be an empty set
+/*void lubySpanSet(set<int>& spanSet, adjGraph graph) {
    for (int i = 0; i < graph.V(); i++) {
       if(graph.numEdges(i) == 0 || (rand() % (2 * graph.numEdges(i))) == 1) {
          spanSet.insert(i);
@@ -73,7 +110,7 @@ void lubySpanSet(set<int>& spanSet, adjGraph graph) {
          }
       }
    }
-}
+}*/
 
 //Helper method for testing
 void printMarked(vector<bool> marked, int n) {
